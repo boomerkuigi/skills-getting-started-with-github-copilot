@@ -20,16 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        let participantsHTML = "";
+        const participantsSection = document.createElement("div");
+        participantsSection.className = "participants-section";
+
         if (details.participants.length > 0) {
-          participantsHTML = `
-            <div class="participants-section">
-              <h5>Participants:</h5>
-              <ul>
-                ${details.participants.map((p) => `<li>${p}</li>`).join("")}
-              </ul>
-            </div>
-          `;
+          const participantsHeader = document.createElement("h5");
+          participantsHeader.textContent = "Participants:";
+          participantsSection.appendChild(participantsHeader);
+
+          const participantsList = document.createElement("ul");
+          details.participants.forEach((participant) => {
+            const participantItem = document.createElement("li");
+            participantItem.textContent = participant;
+            participantsList.appendChild(participantItem);
+          });
+          participantsSection.appendChild(participantsList);
         }
 
         activityCard.innerHTML = `
